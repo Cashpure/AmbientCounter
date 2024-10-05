@@ -68,14 +68,7 @@ body {
 
 
 
-.circle--active {
-   scale: 2.1;
-}
 
-.circle--switched {
-   background-color: white;
-   border: solid 2px black;
-}
 
 /*  */
 
@@ -256,67 +249,7 @@ body {
 .menu-circle__updated {
    display: none !important;
 }
-.circle {
-   background-color: white;
-   border-radius: 50%;
-   position: absolute;
-   display: none;
-   transition: all .9s;
-   width: 5px;
-   height: 5px;
-   z-index: -1;
-}
-.circle__auto {
-   width: 15px;
-   height: 15px;
-   border-radius: 50%;
-   border: solid white 2px;
-   z-index: -1;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transition: all .5s;
 
-   display: none;
-
-}
-.circle__auto--switched {
-   background-color: black;
-   border: solid black 2px;
-}
-
-/* .circle__auto-1 {
-   left: 50%;
-   top: 10%;
-}
-.circle__auto-2 {
-   left: 70%;
-   top: 30%;
-}
-.circle__auto-3 {
-   left: 90%;
-   top: 50%;
-}
-.circle__auto-4 {
-   left: 70%;
-   top: 70%;
-}
-.circle__auto-5 {
-   left: 50%;
-   top: 90%;
-}
-.circle__auto-6 {
-   left: 30%;
-   top: 70%;
-}
-.circle__auto-7 {
-   left: 10%;
-   top: 50%;
-}
-.circle__auto-8 {
-   left: 30%;
-   top: 30%;
-} */
 .soundbutton {
 	position: fixed;
 	bottom: 5vh;
