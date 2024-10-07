@@ -15,6 +15,7 @@ let soundEl = document.querySelectorAll('equa__el')
 let soundEls = [soundEl1, soundEl2, soundEl3, soundEl4, soundEl5, soundEl6, soundEl7, soundEl8, soundEl9]
 let soundButton = document.getElementById('soundbutton'),
    audio = document.querySelector('.audio')
+let menuItem = document.getElementsByClassName('menu-item')
 
 soundButton.addEventListener('click', e => {
    soundButton.classList.toggle('paused')
@@ -39,6 +40,23 @@ let btn = document.getElementById('btn')
 //    return scaled.toFixed(1) + suffix;
 // }
 
+function abbreviateNumber(value) {
+   let newValue = value;
+   if (value >= 1000) {
+      let suffixes = ["", "k", "m", "b", "t"];
+      let suffixNum = Math.floor(("" + value).length / 3);
+      let shortValue = '';
+      for (let precision = 2; precision >= 1; precision--) {
+         shortValue = parseFloat((suffixNum != 0 ? (value / Math.pow(1000, suffixNum)) : value).toPrecision(precision));
+         let dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g, '');
+         if (dotLessShortValue.length <= 2) { break; }
+      }
+      if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+      newValue = shortValue + suffixes[suffixNum];
+   }
+   return newValue;
+}
+
 let k = 0;
 function func() {
    return function count() {
@@ -50,11 +68,12 @@ let res = func()
 let square
 let ii = 0
 let squareSize = 5
+let squareBorderSize = 2
 let squareColor = ["white", "black"]
 let squareColorValue = 0
 btn.onclick = () => {
    res.value += m
-   txt.innerText = res.value
+   txt.innerText = abbreviateNumber(res.value)
    let iiId = ii + "-square"
 
    let posLeft = Math.floor(Math.random() * 95) + "%"
@@ -62,8 +81,9 @@ btn.onclick = () => {
    square = document.createElement("custom-square");
    square.setAttribute("id", iiId);
    square.setAttribute("size", squareSize + "px");
-   square.setAttribute("color", squareColor[squareColorValue]);
+   square.setAttribute("color", "white");
    square.setAttribute("border-radius", "50%");
+   square.setAttribute("border", "solid " + squareBorderSize + "px " + squareColor[squareColorValue])
    square.setAttribute("position", "absolute");
    square.setAttribute("transition", "all .9s");
    square.setAttribute("left", posLeft);
@@ -81,6 +101,8 @@ btn.onclick = () => {
    setTimeout(() => {
       squareNumber.remove()
    }, 800);
+   console.log(res.value)
+   console.log(value1.value)
 
    // update.disabled = false;
    // remove.disabled = false;
@@ -91,15 +113,13 @@ function plus() {
 
 }
 
-
-
-
 // console.log(posLeft)
 
 
 $(function () {
    $('.btn').on('click', function (e) {
       e.preventDefault()
+
       // let randomItem = circles[Math.floor(Math.random() * circles.length)]
       // let posLeft = Math.floor(Math.random() * 95) + "%"
       // let posTop = Math.floor(Math.random() * 95) + "%"
@@ -159,9 +179,9 @@ $(function () {
          $('#cursor').toggleClass('cursor--back__switched')
       }
    })
-   $(document).bind('contextmenu', function (e) {
-      e.preventDefault();
-   })
+   // $(document).bind('contextmenu', function (e) {
+   //    e.preventDefault();
+   // })
 })
 
 
@@ -385,11 +405,12 @@ setInterval(upd, 0);
 
 // let sizeNumber = 0
 
-let c = 3
+let c = 30
 let m = 1
 res.value = res()
+value1.value = c
 function gradeCursor() {
-   if (txt.innerText >= c) {
+   if (res.value >= c) {
       // for (let i = 0; i < circles.length; i++) {
       //    let sizesArr = ["10px", "20px", "30px", "40px", "50px", "60px", "70px", "80px", "90px", "100px"]
       //    let size = sizesArr[(sizeNumber)]
@@ -397,32 +418,49 @@ function gradeCursor() {
       //    circles[i].style.height = size
       // }
       // sizeNumber++
-      txt.innerText -= c
       res.value -= c
+      txt.innerText = abbreviateNumber(res.value)
       c *= 3
       m += 1
-      value1.innerText *= 3
+      value1.value *= 3
+      value1.innerText = abbreviateNumber(value1.value)
 
       squareSize += 10
+      squareBorderSize += 2
       // btn.onclick = () => {
       //    res.value += m
       //    k += m
       //    txt.innerText = res.value
       // }
+   } else {
+      value1.style.color = "red"
+      value1.style.transition = "all .3s"
+      setTimeout(() => {
+         value1.style.color = body[0].style.color
+      }, 300);
    }
 }
 
 
 let b = 400
+value2.value = b
 let aa = 1
 function gradeCirle() {
-   if (txt.innerText >= b) {
-      txt.innerText -= b
+   if (res.value >= b) {
       res.value -= b
+      txt.innerText = abbreviateNumber(res.value)
       aa *= 2
       b *= aa
       m *= 3
-      value2.innerText *= aa
+      value2.value *= aa
+      value2.innerText = abbreviateNumber(value2.value)
+
+   } else {
+      value2.style.color = "red"
+      value2.style.transition = "all .3s"
+      setTimeout(() => {
+         value2.style.color = body[0].style.color
+      }, 300);
    }
 }
 
@@ -443,18 +481,22 @@ function gradeCirle() {
 
 
 // let squareBorderValue =  0
-let f = 0
-let ab = 8
+let f = 6400
+value3.value = f
+value3.innerText = abbreviateNumber(value3.value)
+
+let ab = 12
 function gradeAuto() {
-   if (txt.innerText >= f) {
-      txt.innerText -= f
+   if (res.value >= f) {
       res.value -= f
+      txt.innerText = abbreviateNumber(res.value)
       f *= 4
-      value3.innerText *= 4
+      value3.value *= 4
+      value3.innerText = abbreviateNumber(value3.value)
 
       setInterval(() => {
          res.value += ab
-         txt.innerText = res.value
+         txt.innerText = abbreviateNumber(res.value)
          let iiId = ii + "-square"
 
          let posLeft = Math.floor(Math.random() * 95) + "%"
@@ -486,6 +528,12 @@ function gradeAuto() {
       ab += 4
 
 
+   } else {
+      value3.style.color = "red"
+      value3.style.transition = "all .3s"
+      setTimeout(() => {
+         value3.style.color = body[0].style.color
+      }, 300);
    }
 }
 
