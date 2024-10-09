@@ -16,6 +16,12 @@ let soundEls = [soundEl1, soundEl2, soundEl3, soundEl4, soundEl5, soundEl6, soun
 let soundButton = document.getElementById('soundbutton'),
    audio = document.querySelector('.audio')
 let menuItem = document.getElementsByClassName('menu-item')
+let congrats = document.getElementById('congrats')
+let ach = document.getElementsByClassName('ach')
+let ach1 = document.getElementById('ach-1')
+let achBack = document.getElementById('ach-back')
+let question = document.getElementsByClassName('question')
+
 
 soundButton.addEventListener('click', e => {
    soundButton.classList.toggle('paused')
@@ -65,12 +71,17 @@ function func() {
 }
 let res = func()
 
+let cup
+let cupGoal
 let square
 let ii = 0
 let squareSize = 5
 let squareBorderSize = 2
 let squareColor = ["white", "black"]
 let squareColorValue = 0
+let congratsStep = 1000000
+let congratsArr = ["1m", "10m", "100m", "1b", "10b", "100b", "1t", "10t", "100t"]
+let ca = 0
 btn.onclick = () => {
    res.value += m
    txt.innerText = abbreviateNumber(res.value)
@@ -103,6 +114,28 @@ btn.onclick = () => {
    }, 800);
    console.log(res.value)
    console.log(value1.value)
+
+   if (res.value >= congratsStep) {
+      cup = document.createElement("img")
+      cupGoal = document.createElement("p")
+      cup.setAttribute("id", "cup")
+      cup.setAttribute("src", "../pics/golden-cup-7825.svg")
+      cupGoal.setAttribute("id", "cup-goal")
+      cupGoal.innerText = congratsArr[ca]
+      question[ca].style.display = "none"
+      ach[ca].appendChild(cup);
+      ach[ca].appendChild(cupGoal);
+
+      congratsStep *= 10
+      congrats.innerText = "Congrats with " + congratsArr[ca] + "!"
+      ca++
+      congrats.style.display = "block"
+      setTimeout(() => {
+         $(function () {
+            $('#congrats').fadeOut()
+         })
+      }, 3000);
+   }
 
    // update.disabled = false;
    // remove.disabled = false;
@@ -305,8 +338,8 @@ let menuCircle = document.getElementById('menu-circle')
 const pages = [
    {
       name: "mainPage",
-      "button text": ["Upgrade", "", "Switch",],
-      "button functions": [goUp, color, switchTheme],
+      "button text": ["Upgrade", "Achievements", "Switch",],
+      "button functions": [goUp, achievements, switchTheme],
    },
    {
       name: "secondPage",
@@ -352,7 +385,23 @@ function goBack() {
    upBtn3.classList.remove('up-3__updated')
 }
 
-function color() {
+
+function achievements() {
+   container.style.transform = "translateX(0)"
+   crsr.style.zIndex = "101"
+   if (body[0].classList.contains('body--switched')) {
+      crsr.classList.toggle('cursor--switched')
+      crsr.classList.toggle('cursor--menu')
+      crsr.classList.toggle('cursor--menu__switched')
+      for (let i = 0; i < soundEls.length; i++) {
+         soundEls[i].classList.toggle('equa__el--switched')
+      }
+      if (squareColorValue < 1) {
+         squareColorValue++
+      } else {
+         squareColorValue--
+      }
+   }
 
 }
 
@@ -409,6 +458,8 @@ let c = 30
 let m = 1
 res.value = res()
 value1.value = c
+value1.innerText = abbreviateNumber(value1.value)
+
 function gradeCursor() {
    if (res.value >= c) {
       // for (let i = 0; i < circles.length; i++) {
@@ -420,13 +471,12 @@ function gradeCursor() {
       // sizeNumber++
       res.value -= c
       txt.innerText = abbreviateNumber(res.value)
-      c *= 3
-      m += 1
-      value1.value *= 3
+      c *= 2
+      m += 4
+      value1.value *= 2
       value1.innerText = abbreviateNumber(value1.value)
 
-      squareSize += 10
-      squareBorderSize += 2
+      squareSize += 4
       // btn.onclick = () => {
       //    res.value += m
       //    k += m
@@ -442,8 +492,9 @@ function gradeCursor() {
 }
 
 
-let b = 400
+let b = 250
 value2.value = b
+value2.innerText = abbreviateNumber(value2.value)
 let aa = 1
 function gradeCirle() {
    if (res.value >= b) {
@@ -454,6 +505,8 @@ function gradeCirle() {
       m *= 3
       value2.value *= aa
       value2.innerText = abbreviateNumber(value2.value)
+      squareBorderSize += 3
+
 
    } else {
       value2.style.color = "red"
@@ -481,24 +534,23 @@ function gradeCirle() {
 
 
 // let squareBorderValue =  0
-let f = 6400
+let f = 300000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
-let ab = 12
+let ab = 100000
 function gradeAuto() {
    if (res.value >= f) {
       res.value -= f
       txt.innerText = abbreviateNumber(res.value)
-      f *= 4
-      value3.value *= 4
+      f *= 3
+      value3.value *= 3
       value3.innerText = abbreviateNumber(value3.value)
 
       setInterval(() => {
-         res.value += ab
+         res.value += ab        
          txt.innerText = abbreviateNumber(res.value)
          let iiId = ii + "-square"
-
          let posLeft = Math.floor(Math.random() * 95) + "%"
          let posTop = Math.floor(Math.random() * 95) + "%"
          square = document.createElement("custom-square");
@@ -524,8 +576,29 @@ function gradeAuto() {
          setTimeout(() => {
             squareNumber.remove()
          }, 800);
+         if (res.value >= congratsStep) {
+            cup = document.createElement("img")
+            cupGoal = document.createElement("p")
+            cup.setAttribute("id", "cup")
+            cup.setAttribute("src", "../pics/golden-cup-7825.svg")
+            cupGoal.setAttribute("id", "cup-goal")
+            cupGoal.innerText = congratsArr[ca]
+            question[ca].style.display = "none"
+            ach[ca].appendChild(cup);
+            ach[ca].appendChild(cupGoal);
+
+            congratsStep *= 10
+            congrats.innerText = "Congrats with " + congratsArr[ca] + "!"
+            ca++
+            congrats.style.display = "block"
+            setTimeout(() => {
+               $(function () {
+                  $('#congrats').fadeOut()
+               })
+            }, 3000);
+         }
       }, 1000);
-      ab += 4
+      ab *= 2
 
 
    } else {
@@ -540,3 +613,22 @@ function gradeAuto() {
 let randomItemAutoPosLeft = ["50%", "70%", "90%", "70%", "50%", "30%", "10%", "30%"]
 let randomItemAutoPosTop = ["10%", "30%", "50%", "70%", "90%", "70%", "50%", "30%"]
 
+let container = document.getElementById('container')
+achBack.onclick = () => {
+   container.style.transform = "translateX(100%)"
+   crsr.style.zIndex = "-1"
+   if (body[0].classList.contains('body--switched')) {
+      crsr.classList.toggle('cursor--switched')
+      // crsr.classList.toggle('cursor--menu')
+      // crsr.classList.toggle('cursor--menu__switched')
+      for (let i = 0; i < soundEls.length; i++) {
+         soundEls[i].classList.toggle('equa__el--switched')
+      }
+      if (squareColorValue < 1) {
+         squareColorValue++
+      } else {
+         squareColorValue--
+      }
+   }
+   
+}
