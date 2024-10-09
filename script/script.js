@@ -2,19 +2,9 @@ let body = document.getElementsByTagName('body')
 let menu = document.getElementById('menu')
 let crsr = document.getElementById('cursor')
 let wrapper = document.getElementById('wrapper')
-let soundEl1 = document.getElementById('equa__el-1')
-let soundEl2 = document.getElementById('equa__el-2')
-let soundEl3 = document.getElementById('equa__el-3')
-let soundEl4 = document.getElementById('equa__el-4')
-let soundEl5 = document.getElementById('equa__el-5')
-let soundEl6 = document.getElementById('equa__el-6')
-let soundEl7 = document.getElementById('equa__el-7')
-let soundEl8 = document.getElementById('equa__el-8')
-let soundEl9 = document.getElementById('equa__el-9')
-let soundEl = document.querySelectorAll('equa__el')
-let soundEls = [soundEl1, soundEl2, soundEl3, soundEl4, soundEl5, soundEl6, soundEl7, soundEl8, soundEl9]
-let soundButton = document.getElementById('soundbutton'),
-   audio = document.querySelector('.audio')
+let soundEl = document.getElementsByClassName('equa__el')
+let soundButton = document.getElementById('soundbutton')
+let audio = document.querySelector('.audio')
 let menuItem = document.getElementsByClassName('menu-item')
 let congrats = document.getElementById('congrats')
 let ach = document.getElementsByClassName('ach')
@@ -112,8 +102,6 @@ btn.onclick = () => {
    setTimeout(() => {
       squareNumber.remove()
    }, 800);
-   console.log(res.value)
-   console.log(value1.value)
 
    if (res.value >= congratsStep) {
       cup = document.createElement("img")
@@ -146,7 +134,6 @@ function plus() {
 
 }
 
-// console.log(posLeft)
 
 
 $(function () {
@@ -331,9 +318,7 @@ let value3 = document.getElementById('value-3')
 let value = document.getElementsByClassName('value')
 let menuCircle = document.getElementById('menu-circle')
 
-// value1.innerText = abbreviateNumber(value1.innerText)
-// value2.innerText = abbreviateNumber(value2.innerText)
-// value3.innerText = abbreviateNumber(value3.innerText)
+
 
 const pages = [
    {
@@ -348,9 +333,7 @@ const pages = [
    }
 ]
 
-// upBtn1.onclick = goUp
-// upBtn2.onclick = goUp
-// upBtn3.onclick = goUp
+
 
 
 function update(page) {
@@ -393,8 +376,8 @@ function achievements() {
       crsr.classList.toggle('cursor--switched')
       crsr.classList.toggle('cursor--menu')
       crsr.classList.toggle('cursor--menu__switched')
-      for (let i = 0; i < soundEls.length; i++) {
-         soundEls[i].classList.toggle('equa__el--switched')
+      for (let i = 0; i < soundEl.length; i++) {
+         soundEl[i].classList.toggle('equa__el--switched')
       }
       if (squareColorValue < 1) {
          squareColorValue++
@@ -415,8 +398,8 @@ function switchTheme() {
    crsr.classList.toggle('cursor--menu__switched')
    upBtn3.classList.toggle('up-3__switched')
    menuCircle.classList.toggle('menu-circle__switched')
-   for (let i = 0; i < soundEls.length; i++) {
-      soundEls[i].classList.toggle('equa__el--switched')
+   for (let i = 0; i < soundEl.length; i++) {
+      soundEl[i].classList.toggle('equa__el--switched')
    }
    if (squareColorValue < 1) {
       squareColorValue++
@@ -445,8 +428,6 @@ setInterval(upd, 0);
 
 // let sizesArr = ["10px", "20px", "30px", "40px"]
 // let size = sizesArr[0]
-
-// console.log(size)
 
 
 
@@ -538,7 +519,7 @@ let f = 300000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
-let ab = 100000
+let ab = 80000
 function gradeAuto() {
    if (res.value >= f) {
       res.value -= f
@@ -598,7 +579,7 @@ function gradeAuto() {
             }, 3000);
          }
       }, 1000);
-      ab *= 2
+      ab += 80000
 
 
    } else {
@@ -621,8 +602,8 @@ achBack.onclick = () => {
       crsr.classList.toggle('cursor--switched')
       // crsr.classList.toggle('cursor--menu')
       // crsr.classList.toggle('cursor--menu__switched')
-      for (let i = 0; i < soundEls.length; i++) {
-         soundEls[i].classList.toggle('equa__el--switched')
+      for (let i = 0; i < soundEl.length; i++) {
+         soundEl[i].classList.toggle('equa__el--switched')
       }
       if (squareColorValue < 1) {
          squareColorValue++
