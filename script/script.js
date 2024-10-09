@@ -118,6 +118,9 @@ btn.onclick = () => {
       congrats.innerText = "Congrats with " + congratsArr[ca] + "!"
       ca++
       congrats.style.display = "block"
+      if (body[0].classList.contains("body--switched")) {
+         congrats.style.color = "black"
+      }
       setTimeout(() => {
          $(function () {
             $('#congrats').fadeOut()
@@ -198,6 +201,10 @@ $(function () {
       if ($('#cursor').hasClass('cursor--switched')) {
          $('#cursor').toggleClass('cursor--back__switched')
       }
+   })
+
+   $('#ach-back').hover(function () {
+      crsr.classList.toggle("cursor--menu")
    })
    // $(document).bind('contextmenu', function (e) {
    //    e.preventDefault();
@@ -519,7 +526,7 @@ let f = 300000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
-let ab = 80000
+let ab = 70000
 function gradeAuto() {
    if (res.value >= f) {
       res.value -= f
@@ -572,6 +579,9 @@ function gradeAuto() {
             congrats.innerText = "Congrats with " + congratsArr[ca] + "!"
             ca++
             congrats.style.display = "block"
+            if (body[0].classList.contains("body--switched")) {
+               congrats.style.color = "black"
+            }
             setTimeout(() => {
                $(function () {
                   $('#congrats').fadeOut()
@@ -579,7 +589,7 @@ function gradeAuto() {
             }, 3000);
          }
       }, 1000);
-      ab += 80000
+      ab += 50000
 
 
    } else {

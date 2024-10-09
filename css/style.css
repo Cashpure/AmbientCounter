@@ -105,7 +105,7 @@ body {
    background-color: black !important;
    height: 25px !important;
    width: 25px !important;
-   z-index: 1 !important;
+   z-index: 102 !important;
 }
 .cursor--sound {
    background-color: black !important;
@@ -369,6 +369,7 @@ body {
    display: flex;
    align-items: center;
    justify-content: center;
+   z-index: -2;
 }
 .question {
    display: block;
