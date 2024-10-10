@@ -34,17 +34,18 @@ body {
    background-color: white;
    width: 0;
    height: 0;
-   margin-left: 15px;
-   margin-top: 15px;
+   /* margin-left: 15px;
+   margin-top: 15px; */
    border-radius: 50%;
    border: solid 10px white;
    transition: all .3s;
    box-shadow: 0 0 10px 10px white;
    cursor: none;
    z-index: 2;
-   /* position: absolute; */
-   /* top: 50%;
-   left: 50%; */
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
    /* bottom: 50%; 
    right: 50%; */
 }
@@ -55,8 +56,8 @@ body {
    width: 380px;
    height: 380px;
    /* position: absolute; */
-   top: 50%;
-   left: 50%;
+   /* top: 50%;
+   left: 50%; */
    /* bottom: 50%; 
    right: 50%; */
 }
@@ -315,11 +316,12 @@ body {
    font-size: 40px;
    color: #fff;
    text-align: center;
-   /* margin-top: 30px; */
-   /* transition: all .2s; */
    position: absolute;
    top: 10%;
-   /* display: none; */
+}
+.congrats-ach {
+   color: #fff !important;
+   z-index: 102 !important;
 }
 
 .container {
@@ -332,8 +334,6 @@ body {
    background-color: black;
 }
 .inner {
-   /* display: grid; */
-   /* grid-template: repeat(3, 150px) / repeat(5, 150px); */
    width: 870px;
    height: 870px;
    margin: auto;
@@ -376,7 +376,6 @@ body {
    margin: auto;
    width: 80%;
    height: 80%;
-   /* border-radius: 50%; */
 }
 #cup {
    display: block;
@@ -405,4 +404,15 @@ body {
    height: 12px;
    background-color: black;
    transform: rotate(45deg);
+}
+.small-circle {
+   position: absolute;
+   width: 38px;
+   height: 38px;
+   border-radius: 50%;
+   background-color: white;
+   border: solid white 5px;
+}
+.small-circle__switched {
+   border: solid black 5px;
 }

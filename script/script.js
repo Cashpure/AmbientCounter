@@ -90,6 +90,7 @@ btn.onclick = () => {
    square.setAttribute("left", posLeft);
    square.setAttribute("top", posTop);
    square.setAttribute("z-index", "-1");
+   square.setAttribute("transform", "translate(-50%, -50%)")
    wrapper.appendChild(square);
    ii++
    let squareNumber = document.getElementById(iiId)
@@ -127,10 +128,6 @@ btn.onclick = () => {
          })
       }, 3000);
    }
-
-   // update.disabled = false;
-   // remove.disabled = false;
-   // add.disabled = true;
 }
 
 function plus() {
@@ -142,27 +139,6 @@ function plus() {
 $(function () {
    $('.btn').on('click', function (e) {
       e.preventDefault()
-
-      // let randomItem = circles[Math.floor(Math.random() * circles.length)]
-      // let posLeft = Math.floor(Math.random() * 95) + "%"
-      // let posTop = Math.floor(Math.random() * 95) + "%"
-      // randomItem.style.top = posTop
-      // randomItem.style.left = posLeft
-      // if ($(randomItem).hasClass('circle--active')) {
-
-
-      // }
-      // $(randomItem).fadeIn()
-      // $(randomItem).addClass('circle--active')
-      // setTimeout(() => {
-
-      //    $(randomItem).removeClass('circle--active')
-      //    $(randomItem).fadeOut('slow')
-      // }, 600)
-      // randomItem.style.top = "50%"
-      // randomItem.style.left = "50%"
-      // randomItem.style.bottom = "50%"
-      // randomItem.style.right = "50%"
    })
 
    $('.btn').hover(function () {
@@ -206,16 +182,13 @@ $(function () {
    $('#ach-back').hover(function () {
       crsr.classList.toggle("cursor--menu")
    })
-   // $(document).bind('contextmenu', function (e) {
-   //    e.preventDefault();
-   // })
 })
 
 
 
 class Square extends HTMLElement {
    static get observedAttributes() {
-      return ["color", "size", "border-radius", "position", "transition", "left", "top", "z-index", "id", "border"];
+      return ["color", "size", "border-radius", "position", "transition", "left", "top", "z-index", "id", "border", "transform"];
    }
 
    constructor() {
@@ -254,6 +227,7 @@ function updateStyle(elem) {
          z-index: ${elem.getAttribute("z-index")};
          id: ${elem.getAttribute("id")};
          border: ${elem.getAttribute("border")};
+         transform: ${elem.getAttribute("transform")}
       }
    `;
 }
@@ -392,7 +366,7 @@ function achievements() {
          squareColorValue--
       }
    }
-
+   congrats.classList.toggle('congrats-ach')
 }
 
 function switchTheme() {
@@ -412,6 +386,10 @@ function switchTheme() {
       squareColorValue++
    } else {
       squareColorValue--
+   }
+   let smallCircle = document.getElementsByClassName('small-circle')
+   for (let i = 0; i < smallCircle.length; i++) {
+      smallCircle[i].classList.toggle('small-circle__switched')
    }
 }
 
@@ -433,15 +411,6 @@ setInterval(upd, 0);
 
 
 
-// let sizesArr = ["10px", "20px", "30px", "40px"]
-// let size = sizesArr[0]
-
-
-
-
-
-// let sizeNumber = 0
-
 let c = 30
 let m = 1
 res.value = res()
@@ -450,13 +419,6 @@ value1.innerText = abbreviateNumber(value1.value)
 
 function gradeCursor() {
    if (res.value >= c) {
-      // for (let i = 0; i < circles.length; i++) {
-      //    let sizesArr = ["10px", "20px", "30px", "40px", "50px", "60px", "70px", "80px", "90px", "100px"]
-      //    let size = sizesArr[(sizeNumber)]
-      //    circles[i].style.width = size
-      //    circles[i].style.height = size
-      // }
-      // sizeNumber++
       res.value -= c
       txt.innerText = abbreviateNumber(res.value)
       c *= 2
@@ -465,11 +427,6 @@ function gradeCursor() {
       value1.innerText = abbreviateNumber(value1.value)
 
       squareSize += 4
-      // btn.onclick = () => {
-      //    res.value += m
-      //    k += m
-      //    txt.innerText = res.value
-      // }
    } else {
       value1.style.color = "red"
       value1.style.transition = "all .3s"
@@ -478,6 +435,7 @@ function gradeCursor() {
       }, 300);
    }
 }
+
 
 
 let b = 250
@@ -496,6 +454,26 @@ function gradeCirle() {
       squareBorderSize += 3
 
 
+
+      const smallCircle = document.createElement("div")
+      smallCircle.classList.add('small-circle')
+      if (body[0].classList.contains('body--switched')) {
+         smallCircle.classList.add('small-circle__switched')
+      }
+      wrapper.appendChild(smallCircle);
+      let angle = 0
+      function rotate() {
+         const x = radius * Math.cos(angle) - smallRadius
+         const y = radius * Math.sin(angle) - smallRadius
+         smallCircle.style.left = `calc(50% + ${x}px)`
+         smallCircle.style.top = `calc(50% + ${y}px)`
+         smallCircle.style.position = "absolute"
+         angle += speed
+         requestAnimationFrame(rotate)
+      }
+      rotate()
+
+
    } else {
       value2.style.color = "red"
       value2.style.transition = "all .3s"
@@ -504,22 +482,9 @@ function gradeCirle() {
       }, 300);
    }
 }
-
-// let f = 7000
-// let aa = 1
-// function gradeAuto() {
-//    if (txt.innerText >= f) {
-//       txt.innerText-=f
-//       res.value-=f
-//       aa*=2
-//       f*=aa
-//       m*=2
-//       value3.innerText*=aa
-//    }
-// }
-
-
-
+const radius = 250
+const smallRadius = 38 / 2
+const speed = 0.01
 
 // let squareBorderValue =  0
 let f = 300000
@@ -536,7 +501,7 @@ function gradeAuto() {
       value3.innerText = abbreviateNumber(value3.value)
 
       setInterval(() => {
-         res.value += ab        
+         res.value += ab
          txt.innerText = abbreviateNumber(res.value)
          let iiId = ii + "-square"
          let posLeft = Math.floor(Math.random() * 95) + "%"
@@ -552,6 +517,7 @@ function gradeAuto() {
          square.setAttribute("top", posTop);
          square.setAttribute("z-index", "-1");
          square.setAttribute("border", "solid " + squareColor[squareColorValue] + " 5px");
+         square.setAttribute("transform", "translate(-50%, -50%)")
          wrapper.appendChild(square);
          ii++
          let squareNumber = document.getElementById(iiId)
@@ -610,8 +576,6 @@ achBack.onclick = () => {
    crsr.style.zIndex = "-1"
    if (body[0].classList.contains('body--switched')) {
       crsr.classList.toggle('cursor--switched')
-      // crsr.classList.toggle('cursor--menu')
-      // crsr.classList.toggle('cursor--menu__switched')
       for (let i = 0; i < soundEl.length; i++) {
          soundEl[i].classList.toggle('equa__el--switched')
       }
@@ -621,5 +585,5 @@ achBack.onclick = () => {
          squareColorValue--
       }
    }
-   
+   congrats.classList.toggle('congrats-ach')
 }
