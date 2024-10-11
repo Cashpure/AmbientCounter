@@ -39,7 +39,7 @@ let btn = document.getElementById('btn')
 function abbreviateNumber(value) {
    let newValue = value;
    if (value >= 1000) {
-      let suffixes = ["", "k", "m", "b", "t"];
+      let suffixes = ["", "k", "m", "b", "t", "a", "aa", "ab", "ac", "ad", "ae"];
       let suffixNum = Math.floor(("" + value).length / 3);
       let shortValue = '';
       for (let precision = 2; precision >= 1; precision--) {
@@ -104,7 +104,7 @@ btn.onclick = () => {
       squareNumber.remove()
    }, 800);
 
-   if (res.value >= congratsStep) {
+   if (res.value >= congratsStep && ca <= 7) {
       cup = document.createElement("img")
       cupGoal = document.createElement("p")
       cup.setAttribute("id", "cup")
@@ -131,6 +131,7 @@ btn.onclick = () => {
    clicksInLastSecond.push(m)
    OnlyClicksInLastSecond.push(m)
 }
+// let congratsCheck = true
 let incomeCheck = true
 setInterval(() => {
    earningsPerSecond = clicksInLastSecond.reduce((acc, clickValue) => acc + clickValue, 0)
@@ -144,7 +145,7 @@ setInterval(() => {
    OnlyClicksInLastSecond = []
    AutoInLastSecond = []
 
-   if (earningsPerSecond >= 10000000 && incomeCheck == true) {
+   if (earningsPerSecond >= 100000000 && incomeCheck == true) {
       cup = document.createElement("img")
       cupGoal = document.createElement("p")
       cup.setAttribute("id", "cup")
@@ -363,7 +364,7 @@ const pages = [
    },
    {
       name: "secondPage",
-      "button text": ["Cursor", "Circle", "Auto"],
+      "button text": ["Plus", "Multi", "Auto"],
       "button functions": [gradeCursor, gradeCirle, gradeAuto, goBack],
    }
 ]
@@ -485,18 +486,18 @@ function gradeCursor() {
 
 
 
-let b = 250
+let b = 1100
 value2.value = b
 value2.innerText = abbreviateNumber(value2.value)
-let aa = 1
+// let aa = 1
 function gradeCirle() {
    if (res.value >= b) {
       res.value -= b
       txt.innerText = abbreviateNumber(res.value)
-      aa *= 2
-      b *= aa
+      // aa *= 2
+      b *= 4
       m *= 3
-      value2.value *= aa
+      value2.value *= 4
       value2.innerText = abbreviateNumber(value2.value)
       squareBorderSize += 3
 
@@ -534,7 +535,7 @@ const smallRadius = 38 / 2
 const speed = 0.01
 
 // let squareBorderValue =  0
-let f = 0
+let f = 300000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
@@ -577,7 +578,7 @@ function gradeAuto() {
          setTimeout(() => {
             squareNumber.remove()
          }, 800);
-         if (res.value >= congratsStep) {
+         if (res.value >= congratsStep && ca <= 7) {
             cup = document.createElement("img")
             cupGoal = document.createElement("p")
             cup.setAttribute("id", "cup")
