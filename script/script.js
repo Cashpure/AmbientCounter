@@ -128,11 +128,59 @@ btn.onclick = () => {
          })
       }, 3000);
    }
+   clicksInLastSecond.push(m)
+   OnlyClicksInLastSecond.push(m)
 }
+let incomeCheck = true
+setInterval(() => {
+   earningsPerSecond = clicksInLastSecond.reduce((acc, clickValue) => acc + clickValue, 0)
+   earningsPerClick = OnlyClicksInLastSecond.reduce((acc, clickValue) => acc + clickValue, 0)
+   earningsPerAuto = AutoInLastSecond.reduce((acc, clickValue) => acc + clickValue, 0)
+   income.innerHTML = `total income/sec = ${earningsPerSecond}`
+   incomeClick.innerHTML = `income per click/sec = ${earningsPerClick}`
+   incomeAuto.innerHTML = `auto income/sec = ${earningsPerAuto}`
 
-function plus() {
+   clicksInLastSecond = []
+   OnlyClicksInLastSecond = []
+   AutoInLastSecond = []
 
-}
+   if (earningsPerSecond >= 10000000 && incomeCheck == true) {
+      cup = document.createElement("img")
+      cupGoal = document.createElement("p")
+      cup.setAttribute("id", "cup")
+      cup.setAttribute("src", "../pics/golden-cup-7825.svg")
+      cupGoal.setAttribute("id", "cup-goal")
+      question[8].style.display = "none"
+      ach[8].appendChild(cup)
+      ach[8].appendChild(cupGoal)
+      cupGoal.innerText = "100m/s"
+      congrats.innerText = "Congrats with " + "100m/s " + "!"
+      congrats.style.display = "block"
+      if (body[0].classList.contains("body--switched")) {
+         congrats.style.color = "black"
+      }
+      setTimeout(() => {
+         $(function () {
+            $('#congrats').fadeOut()
+         })
+      }, 3000);
+      incomeCheck = false
+   }
+}, 1000);
+let earningsPerSecond = 0
+let earningsPerAuto = 0
+let earningsPerClick = 0
+let clicksInLastSecond = []
+let OnlyClicksInLastSecond = []
+let AutoInLastSecond = []
+let income = document.getElementById('income')
+let incomeClick = document.getElementById('income__click')
+let incomeAuto = document.getElementById('income__auto')
+let triangle = document.getElementById('triangle')
+// triangle.onclick = () => {
+//    triangle.classList.toggle('triangle--active')
+// }
+
 
 
 
@@ -144,6 +192,21 @@ $(function () {
    $('.btn').hover(function () {
       $(this).toggleClass('btn--active')
       $('#text').fadeToggle('fast')
+   })
+
+   $('.triangle__wrapper').hover(function () {
+      if (($('#cursor').hasClass('cursor--switched')) == false) {
+         $('#cursor').toggleClass('cursor--sound')
+      }
+      if ($('#cursor').hasClass('cursor--switched')) {
+         $('#cursor').toggleClass('cursor--sound__switched')
+      }
+   })
+   $('.triangle__wrapper').on('click', function () {
+      $('#income').slideToggle()
+      $('#income__click').slideToggle()
+      $('#income__auto').slideToggle()
+      $('#triangle').toggleClass('triangle--active')
    })
 
    $('.menu').hover(function () {
@@ -282,13 +345,6 @@ class Cursor {
 
 new Cursor();
 
-
-
-
-
-
-
-
 let upBtn1 = document.getElementById('up-1')
 let upBtn2 = document.getElementById('up-2')
 let upBtn3 = document.getElementById('up-3')
@@ -298,8 +354,6 @@ let value2 = document.getElementById('value-2')
 let value3 = document.getElementById('value-3')
 let value = document.getElementsByClassName('value')
 let menuCircle = document.getElementById('menu-circle')
-
-
 
 const pages = [
    {
@@ -315,8 +369,6 @@ const pages = [
 ]
 
 
-
-
 function update(page) {
    upBtn1.innerText = page["button text"][0];
    upBtn2.innerText = page["button text"][1];
@@ -326,8 +378,6 @@ function update(page) {
    upBtn3.onclick = page["button functions"][2];
    backBtn.onclick = page["button functions"][3];
 }
-
-
 
 function goUp() {
    update(pages[1])
@@ -379,6 +429,10 @@ function switchTheme() {
    crsr.classList.toggle('cursor--menu__switched')
    upBtn3.classList.toggle('up-3__switched')
    menuCircle.classList.toggle('menu-circle__switched')
+   income.classList.toggle('income--switched')
+   incomeClick.classList.toggle('income--switched')
+   incomeAuto.classList.toggle('income--switched')
+   triangle.classList.toggle('triangle--switched')
    for (let i = 0; i < soundEl.length; i++) {
       soundEl[i].classList.toggle('equa__el--switched')
    }
@@ -393,11 +447,7 @@ function switchTheme() {
    }
 }
 
-
-
-
 function upd() {
-
    if (!menu.classList.contains('menu--active')) {
       update(pages[0])
       backBtn.style.display = 'none'
@@ -407,9 +457,6 @@ function upd() {
    }
 }
 setInterval(upd, 0);
-
-
-
 
 let c = 30
 let m = 1
@@ -487,7 +534,7 @@ const smallRadius = 38 / 2
 const speed = 0.01
 
 // let squareBorderValue =  0
-let f = 300000
+let f = 0
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
@@ -554,6 +601,9 @@ function gradeAuto() {
                })
             }, 3000);
          }
+         clicksInLastSecond.push(ab)
+         AutoInLastSecond.push(ab)
+
       }, 1000);
       ab += 50000
 
@@ -566,9 +616,6 @@ function gradeAuto() {
       }, 300);
    }
 }
-
-let randomItemAutoPosLeft = ["50%", "70%", "90%", "70%", "50%", "30%", "10%", "30%"]
-let randomItemAutoPosTop = ["10%", "30%", "50%", "70%", "90%", "70%", "50%", "30%"]
 
 let container = document.getElementById('container')
 achBack.onclick = () => {

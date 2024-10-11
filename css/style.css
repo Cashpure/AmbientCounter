@@ -65,7 +65,7 @@ body {
 .btn--switched {
    background-color: #fff;
    border-color: black;
-   box-shadow:0 0 20px 0 black;
+   box-shadow: 0 0 20px 0 black;
 }
 
 
@@ -99,41 +99,49 @@ body {
          0);
    pointer-events: none;
 }
+
 .cursor--menu {
    transform: translate3d(calc(100vw * var(--cursor-x) - var(--size) / 3),
-   calc(100vh * var(--cursor-y) - var(--size) / 3),
-   0) !important;
+         calc(100vh * var(--cursor-y) - var(--size) / 3),
+         0) !important;
    background-color: black !important;
    height: 25px !important;
    width: 25px !important;
    z-index: 102 !important;
 }
+
 .cursor--sound {
    background-color: black !important;
    border: solid white 5px !important;
 }
+
 .cursor--sound__switched {
    background-color: white !important;
    border: solid black 5px !important;
 }
+
 .cursor--switched {
    background-color: black;
 }
+
 .cursor--menu__switched {
    transform: translate3d(calc(100vw * var(--cursor-x) - var(--size) / 3),
-   calc(100vh * var(--cursor-y) - var(--size) / 3),
-   0) !important;
+         calc(100vh * var(--cursor-y) - var(--size) / 3),
+         0) !important;
    background-color: #fff !important;
    height: 25px !important;
    width: 25px !important;
    z-index: 1 !important;
 }
+
 .cursor--back {
    background-color: #fff !important;
 }
+
 .cursor--back__switched {
    background-color: black !important;
 }
+
 .menu {
    position: absolute;
    top: 0;
@@ -144,22 +152,27 @@ body {
    border-radius: 0 0 0 100%;
    transition: all .3s;
 }
+
 .menu--active {
    width: 350px;
    height: 350px;
 }
+
 .menu--switched {
    background-color: black;
 }
+
 .menu-list {
    display: none;
    flex-direction: column;
    align-items: flex-end;
    font-size: 20px;
 }
+
 .menu-list--active {
    display: flex;
 }
+
 .menu-item {
    margin-bottom: 75px;
    margin-left: 15px;
@@ -167,17 +180,21 @@ body {
    align-items: center;
    transition: all .3s;
 }
+
 .menu-item:first-child {
    margin-top: 15px;
    margin-right: auto;
 }
+
 .menu-item:nth-child(1n+2) {
    margin-right: auto;
    margin-left: 65px;
 }
+
 .menu-item:last-child {
    margin-left: 190px;
 }
+
 .menu-link {
    display: inline-block;
    transition: all .3s;
@@ -185,13 +202,16 @@ body {
    padding: 15px;
    cursor: none;
 }
+
 .menu-item:last-child .menu-link {
    width: 75px;
    padding-right: 0;
 }
+
 .menu-link:hover {
    letter-spacing: 3px;
 }
+
 #back {
    display: none;
    position: fixed;
@@ -203,14 +223,17 @@ body {
    border-radius: 50%;
    cursor: none;
 }
+
 .back--switched {
    background-color: #fff !important;
 }
+
 .back--closed {
    display: none !important;
 }
-#value-1, 
-#value-2, 
+
+#value-1,
+#value-2,
 #value-3 {
    display: none;
 }
@@ -225,15 +248,18 @@ body {
    margin-top: 6px;
    /* transition: all .3s; */
 }
+
 .up-3__switched {
    border: solid 4px #fff !important;
    /* transition: all .3s; */
 }
+
 .up-3__updated {
    border: none !important;
    font-size: 22px !important;
 
 }
+
 .menu-circle {
    margin-right: auto;
    width: 23px;
@@ -242,41 +268,46 @@ body {
    background-color: black;
    /* transition: all .3s; */
 }
+
 .menu-circle__switched {
    margin-right: 0;
    margin-left: auto;
    background-color: #fff;
    /* transition: all .3s; */
 }
+
 .menu-circle__updated {
    display: none !important;
 }
 
 .soundbutton {
-	position: fixed;
-	bottom: 5vh;
-	right: 5vw;
-	cursor: none;
-	width: 24px;
-	transition: .25s ease;
+   position: fixed;
+   bottom: 5vh;
+   right: 5vw;
+   cursor: none;
+   width: 24px;
+   transition: .25s ease;
    z-index: 1000000;
    background-color: transparent;
    color: black;
 }
+
 .soundbutton.paused {
-	opacity: .25;
+   opacity: .25;
 }
+
 .equa {
    width: 30px;
    height: 15px;
    position: fixed;
    bottom: 5vh;
-	right: 5vw;
+   right: 5vw;
    display: flex;
    align-items: center;
    justify-content: center;
    z-index: 1000;
 }
+
 .equa__el {
    animation-duration: 0.8s;
    animation-name: anim;
@@ -287,29 +318,37 @@ body {
    background-color: #fff;
    margin-right: 1px;
 }
+
 .equa__el--switched {
    background-color: black;
 }
+
 .equa__el:nth-child(4n+4) {
    animation-delay: 1.2s;
 }
+
 .equa__el:nth-child(4n+3) {
    animation-delay: .8s;
 }
+
 .equa__el:nth-child(4n+2) {
    animation-delay: .4s;
 }
+
 .equa__el:nth-child(4n+1) {
    animation-delay: 0s;
 }
+
 @keyframes anim {
    from {
       height: 100%;
    }
+
    to {
       height: 20%;
    }
 }
+
 #congrats {
    width: 100%;
    height: 40px;
@@ -319,6 +358,7 @@ body {
    position: absolute;
    top: 10%;
 }
+
 .congrats-ach {
    color: #fff !important;
    z-index: 102 !important;
@@ -333,25 +373,31 @@ body {
    z-index: 100;
    background-color: black;
 }
+
 .inner {
    width: 870px;
    height: 870px;
    margin: auto;
 }
+
 .row {
    width: 100%;
    height: 150px;
    margin: 10px 0;
 }
+
 .row-1 {
    margin-left: 340px;
 }
+
 .row-2 {
    margin-left: 170px;
 }
+
 .row-3 {
    margin-right: 50px;
 }
+
 .ach {
    background-color: #fff;
    width: 150px;
@@ -360,6 +406,7 @@ body {
    display: inline-block;
    margin: 0 10px;
 }
+
 .ach-back {
    margin: 30px 0 0 30px;
    width: 75px;
@@ -371,40 +418,47 @@ body {
    justify-content: center;
    z-index: -2;
 }
+
 .question {
    display: block;
    margin: auto;
    width: 80%;
    height: 80%;
 }
+
 #cup {
    display: block;
    margin: auto;
    width: 80%;
    height: 80%;
 }
+
 #cup-goal {
    font-size: 18px;
    text-align: center;
    color: black;
 }
+
 .ach-back__line {
    background-color: black;
    height: 3px;
    width: 25px;
 }
+
 .ach-back__arrow--line-1 {
    width: 3px;
    height: 12px;
    background-color: black;
    transform: rotate(-45deg);
 }
+
 .ach-back__arrow--line-2 {
    width: 3px;
    height: 12px;
    background-color: black;
    transform: rotate(45deg);
 }
+
 .small-circle {
    position: absolute;
    width: 38px;
@@ -413,6 +467,53 @@ body {
    background-color: white;
    border: solid white 5px;
 }
+
 .small-circle__switched {
    border: solid black 5px;
+}
+
+.income {
+   position: absolute;
+   left: 7vw;
+   bottom: 5vh;
+   font-size: 18px;
+   color: #fff;
+   display: none;
+}
+#income__click {
+   bottom: 15vh;
+}
+#income__auto {
+   bottom: 10vh;
+}
+.income--switched {
+   color: black !important;
+}
+.triangle {
+   width: 0;
+   height: 0;
+   /* background-color: white; */
+   border-left: 10px solid transparent;
+   border-right: 10px solid transparent;
+   border-top: 10px solid white;
+   transition: all .2s;
+}
+.triangle__wrapper {
+   position: absolute;
+   left: calc(5vw - 5px);
+   bottom: calc(5vh - 15px);
+   width: 50px;
+   height: 50px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.triangle--active {
+   /* border-bottom: 10px solid white;
+   border-top: none; */
+   transition: all .2s;
+   transform: rotate(180deg);
+}
+.triangle--switched {
+   border-top: 10px solid black;
 }
