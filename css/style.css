@@ -34,20 +34,16 @@ body {
    background-color: white;
    width: 0;
    height: 0;
-   /* margin-left: 15px;
-   margin-top: 15px; */
    border-radius: 50%;
    border: solid 10px white;
    transition: all .3s;
-   box-shadow: 0 0 10px 10px white;
+   box-shadow: 0 0 10px 0 white;
    cursor: none;
    z-index: 2;
    position: absolute;
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
-   /* bottom: 50%; 
-   right: 50%; */
 }
 
 
@@ -55,11 +51,6 @@ body {
    box-shadow: none;
    width: 380px;
    height: 380px;
-   /* position: absolute; */
-   /* top: 50%;
-   left: 50%; */
-   /* bottom: 50%; 
-   right: 50%; */
 }
 
 .btn--switched {
@@ -67,12 +58,6 @@ body {
    border-color: black;
    box-shadow: 0 0 20px 0 black;
 }
-
-
-
-
-
-/*  */
 
 #text {
    font-size: 40px;
@@ -516,4 +501,12 @@ body {
 }
 .triangle--switched {
    border-top: 10px solid black;
+}
+#earnings {
+   top: 5vh;
+   left: 7vw;
+   font-size: 18px;
+   color: #fff;
+   display: none;
+   position: absolute;
 }

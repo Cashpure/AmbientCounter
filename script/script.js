@@ -72,7 +72,7 @@ let squareColorValue = 0
 let congratsStep = 1000000
 let congratsArr = ["1m", "10m", "100m", "1b", "10b", "100b", "1t", "10t", "100t"]
 let ca = 0
-btn.onclick = () => {
+let press = function() {
    res.value += m
    txt.innerText = abbreviateNumber(res.value)
    let iiId = ii + "-square"
@@ -128,10 +128,16 @@ btn.onclick = () => {
          })
       }, 3000);
    }
+   earnings.innerText = "coins = " + res.value
+
    clicksInLastSecond.push(m)
    OnlyClicksInLastSecond.push(m)
 }
-// let congratsCheck = true
+btn.addEventListener('click', press)
+btn.addEventListener('wheel', press)
+btn.addEventListener('keydown', press)
+
+
 let incomeCheck = true
 setInterval(() => {
    earningsPerSecond = clicksInLastSecond.reduce((acc, clickValue) => acc + clickValue, 0)
@@ -174,6 +180,7 @@ let earningsPerClick = 0
 let clicksInLastSecond = []
 let OnlyClicksInLastSecond = []
 let AutoInLastSecond = []
+let earnings = document.getElementById('earnings')
 let income = document.getElementById('income')
 let incomeClick = document.getElementById('income__click')
 let incomeAuto = document.getElementById('income__auto')
@@ -207,6 +214,7 @@ $(function () {
       $('#income').slideToggle()
       $('#income__click').slideToggle()
       $('#income__auto').slideToggle()
+      $('#earnings').slideToggle()
       $('#triangle').toggleClass('triangle--active')
    })
 
@@ -420,6 +428,23 @@ function achievements() {
    congrats.classList.toggle('congrats-ach')
 }
 
+achBack.onclick = () => {
+   container.style.transform = "translateX(100%)"
+   crsr.style.zIndex = "-1"
+   if (body[0].classList.contains('body--switched')) {
+      crsr.classList.toggle('cursor--switched')
+      for (let i = 0; i < soundEl.length; i++) {
+         soundEl[i].classList.toggle('equa__el--switched')
+      }
+      if (squareColorValue < 1) {
+         squareColorValue++
+      } else {
+         squareColorValue--
+      }
+   }
+   congrats.classList.toggle('congrats-ach')
+}
+
 function switchTheme() {
    btn.classList.toggle('btn--switched')
    body[0].classList.toggle('body--switched')
@@ -433,6 +458,7 @@ function switchTheme() {
    income.classList.toggle('income--switched')
    incomeClick.classList.toggle('income--switched')
    incomeAuto.classList.toggle('income--switched')
+   earnings.classList.toggle('income--switched')
    triangle.classList.toggle('triangle--switched')
    for (let i = 0; i < soundEl.length; i++) {
       soundEl[i].classList.toggle('equa__el--switched')
@@ -501,8 +527,6 @@ function gradeCirle() {
       value2.innerText = abbreviateNumber(value2.value)
       squareBorderSize += 3
 
-
-
       const smallCircle = document.createElement("div")
       smallCircle.classList.add('small-circle')
       if (body[0].classList.contains('body--switched')) {
@@ -520,7 +544,6 @@ function gradeCirle() {
          requestAnimationFrame(rotate)
       }
       rotate()
-
 
    } else {
       value2.style.color = "red"
@@ -604,6 +627,7 @@ function gradeAuto() {
          }
          clicksInLastSecond.push(ab)
          AutoInLastSecond.push(ab)
+         earnings.innerText = "coins = " + res.value
 
       }, 1000);
       ab += 50000
@@ -619,19 +643,3 @@ function gradeAuto() {
 }
 
 let container = document.getElementById('container')
-achBack.onclick = () => {
-   container.style.transform = "translateX(100%)"
-   crsr.style.zIndex = "-1"
-   if (body[0].classList.contains('body--switched')) {
-      crsr.classList.toggle('cursor--switched')
-      for (let i = 0; i < soundEl.length; i++) {
-         soundEl[i].classList.toggle('equa__el--switched')
-      }
-      if (squareColorValue < 1) {
-         squareColorValue++
-      } else {
-         squareColorValue--
-      }
-   }
-   congrats.classList.toggle('congrats-ach')
-}
