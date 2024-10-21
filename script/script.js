@@ -5,6 +5,7 @@ let wrapper = document.getElementById('wrapper')
 let soundEl = document.getElementsByClassName('equa__el')
 let soundButton = document.getElementById('soundbutton')
 let audio = document.querySelector('.audio')
+let clickSound = document.querySelector('.click-sound')
 let menuItem = document.getElementsByClassName('menu-item')
 let congrats = document.getElementById('congrats')
 let ach = document.getElementsByClassName('ach')
@@ -132,6 +133,12 @@ let press = function() {
 
    clicksInLastSecond.push(m)
    OnlyClicksInLastSecond.push(m)
+   // if (clickSound.played) {
+      clickSound.load()
+      clickSound.play()
+   // } else {
+      // clickSound.play()
+   // }
 }
 btn.addEventListener('click', press)
 btn.addEventListener('wheel', press)
@@ -499,6 +506,7 @@ function gradeCursor() {
       m += 4
       value1.value *= 2
       value1.innerText = abbreviateNumber(value1.value)
+      earnings.innerText = "coins = " + res.value
 
       squareSize += 4
    } else {
@@ -544,6 +552,7 @@ function gradeCirle() {
          requestAnimationFrame(rotate)
       }
       rotate()
+      earnings.innerText = "coins = " + res.value
 
    } else {
       value2.style.color = "red"
