@@ -567,7 +567,7 @@ const smallRadius = 38 / 2
 const speed = 0.01
 
 // let squareBorderValue =  0
-let f = 300000
+let f = 7000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
@@ -637,7 +637,8 @@ function gradeAuto() {
          clicksInLastSecond.push(ab)
          AutoInLastSecond.push(ab)
          earnings.innerText = "coins = " + res.value
-
+         clickSound.load()
+         clickSound.play()
       }, 1000);
       ab += 50000
 
