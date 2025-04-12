@@ -261,6 +261,11 @@ $(function () {
    $('#ach-back').hover(function () {
       crsr.classList.toggle("cursor--menu")
    })
+
+   $('#esc-text').hover(function () {
+      // $('#cursor').toggleClass('cursor--switched')
+      $('#cursor').toggleClass('cursor--menu')
+   })
 })
 
 
@@ -418,7 +423,7 @@ function goBack() {
 
 function achievements() {
    container.style.transform = "translateX(0)"
-   crsr.style.zIndex = "101"
+   // crsr.style.zIndex = "101"
    if (body[0].classList.contains('body--switched')) {
       crsr.classList.toggle('cursor--switched')
       crsr.classList.toggle('cursor--menu')
@@ -437,7 +442,7 @@ function achievements() {
 
 achBack.onclick = () => {
    container.style.transform = "translateX(100%)"
-   crsr.style.zIndex = "-1"
+   // crsr.style.zIndex = "-1"
    if (body[0].classList.contains('body--switched')) {
       crsr.classList.toggle('cursor--switched')
       for (let i = 0; i < soundEl.length; i++) {
@@ -467,6 +472,7 @@ function switchTheme() {
    incomeAuto.classList.toggle('income--switched')
    earnings.classList.toggle('income--switched')
    triangle.classList.toggle('triangle--switched')
+   escText.classList.toggle('esc-text--switched')
    for (let i = 0; i < soundEl.length; i++) {
       soundEl[i].classList.toggle('equa__el--switched')
    }
@@ -653,3 +659,34 @@ function gradeAuto() {
 }
 
 let container = document.getElementById('container')
+let megaWrapper = document.getElementById('mega-wrapper')
+
+
+let escText = document.getElementById('esc-text')
+
+escText.onclick = () => {
+   window.close()
+}
+
+let escBlock = document.getElementById('esc')
+
+window.addEventListener(
+   "keydown", 
+   function (event) {
+      if (event.defaultPrevented) {
+         return;
+      }
+
+      switch (event.key) {
+         case "Escape":
+         escBlock.classList.toggle("esc--active")
+         megaWrapper.classList.toggle("mega-wrapper--off")
+            break;
+
+         default:
+            return;
+      }
+      event.preventDefault();
+   },
+   true,
+);

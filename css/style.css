@@ -27,7 +27,16 @@ body {
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+.mega-wrapper {
    position: relative;
+   min-width: 100%;
+   min-height: 100%;
+}
+
+.mega-wrapper--off {
+   display: none;
 }
 
 .btn {
@@ -72,12 +81,13 @@ body {
 .cursor {
    --size: 50px;
    position: absolute;
-   z-index: -1;
+   z-index: 200;
    top: 0;
    left: 0;
    height: var(--size);
    width: var(--size);
-   background-color: #fff;
+   /* background-color: #fff; */
+   backdrop-filter: invert(100%);
    border-radius: 50%;
    transform: translate3d(calc(100vw * var(--cursor-x) - var(--size) / 2),
          calc(100vh * var(--cursor-y) - var(--size) / 2),
@@ -89,42 +99,41 @@ body {
    transform: translate3d(calc(100vw * var(--cursor-x) - var(--size) / 3),
          calc(100vh * var(--cursor-y) - var(--size) / 3),
          0) !important;
-   background-color: black !important;
+   /* background-color: black !important; */
    height: 25px !important;
    width: 25px !important;
-   z-index: 102 !important;
 }
 
 .cursor--sound {
-   background-color: black !important;
+   /* background-color: black !important; */
    border: solid white 5px !important;
 }
 
 .cursor--sound__switched {
-   background-color: white !important;
+   /* background-color: white !important; */
    border: solid black 5px !important;
 }
 
 .cursor--switched {
-   background-color: black;
+   /* background-color: black; */
 }
 
 .cursor--menu__switched {
    transform: translate3d(calc(100vw * var(--cursor-x) - var(--size) / 3),
          calc(100vh * var(--cursor-y) - var(--size) / 3),
          0) !important;
-   background-color: #fff !important;
+   /* background-color: #fff !important; */
    height: 25px !important;
    width: 25px !important;
    z-index: 1 !important;
 }
 
 .cursor--back {
-   background-color: #fff !important;
+   /* background-color: #fff !important; */
 }
 
 .cursor--back__switched {
-   background-color: black !important;
+   /* background-color: black !important; */
 }
 
 .menu {
@@ -272,7 +281,7 @@ body {
    cursor: none;
    width: 24px;
    transition: .25s ease;
-   z-index: 1000000;
+   z-index: 199;
    background-color: transparent;
    color: black;
 }
@@ -290,7 +299,7 @@ body {
    display: flex;
    align-items: center;
    justify-content: center;
-   z-index: 1000;
+   z-index: 199;
 }
 
 .equa__el {
@@ -359,6 +368,10 @@ body {
    background-color: black;
 }
 
+.container--off {
+   display: none;
+}
+
 .inner {
    width: 870px;
    height: 870px;
@@ -369,6 +382,7 @@ body {
    width: 100%;
    height: 150px;
    margin: 10px 0;
+   display: flex;
 }
 
 .row-1 {
@@ -388,7 +402,10 @@ body {
    width: 150px;
    height: 150px;
    border-radius: 50%;
-   display: inline-block;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
    margin: 0 10px;
 }
 
@@ -409,14 +426,12 @@ body {
    margin: auto;
    width: 80%;
    height: 80%;
-   position: ;
 }
 
 #cup {
    display: block;
-   margin: auto;
    width: 80%;
-   height: 80%;
+   height: 60%;
 }
 
 #cup-goal {
@@ -510,4 +525,38 @@ body {
    color: #fff;
    display: none;
    position: absolute;
+}
+
+
+.esc {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   top: 0;
+   right: 0;
+   background-color: #ffffff34;
+   display: none;
+   z-index: 110;
+}
+
+.esc--active {
+   display: block;
+}
+
+.esc-text {
+   font-size: 1.9rem;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   color: #fff;
+   transition: all .2s;
+}
+
+.esc-text:hover {
+   letter-spacing: 3px;
+}
+
+.esc-text--switched {
+   color: black;
 }
