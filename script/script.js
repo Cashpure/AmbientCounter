@@ -66,26 +66,24 @@ let cup
 let cupGoal
 let square
 let ii = 0
-let squareSize = 5
-let squareBorderSize = 2
+let squareSize = 0.26
+let squareBorderSize = 0.1
 let squareColor = ["white", "black"]
 let squareColorValue = 0
 let congratsStep = 1000000
 let congratsArr = ["1m", "10m", "100m", "1b", "10b", "100b", "1t", "10t", "100t"]
 let ca = 0
-let press = function() {
-   res.value += m
-   txt.innerText = abbreviateNumber(res.value)
+let press = function () {
    let iiId = ii + "-square"
 
    let posLeft = Math.floor(Math.random() * 95) + "%"
    let posTop = Math.floor(Math.random() * 95) + "%"
    square = document.createElement("custom-square");
    square.setAttribute("id", iiId);
-   square.setAttribute("size", squareSize + "px");
+   square.setAttribute("size", squareSize + "vw");
    square.setAttribute("color", "white");
    square.setAttribute("border-radius", "50%");
-   square.setAttribute("border", "solid " + squareBorderSize + "px " + squareColor[squareColorValue])
+   square.setAttribute("border", "solid " + squareBorderSize + "vw " + squareColor[squareColorValue])
    square.setAttribute("position", "absolute");
    square.setAttribute("transition", "all .9s");
    square.setAttribute("left", posLeft);
@@ -104,6 +102,31 @@ let press = function() {
    setTimeout(() => {
       squareNumber.remove()
    }, 800);
+
+   let circleNumber = balls.pop()
+   if (smallCircleCounter > 0) {
+      smallCircleCounterId = smallCircleCounter + "-circle"
+
+      circleNumber.isRotating = false
+      circleNumber.el.style.transition = "all .8s"
+      circleNumber.el.style.left = "50%"
+      circleNumber.el.style.top = "50%"
+      circleNumber.el.style.transform = "translate(-50%, -50%)"
+      setTimeout(() => {
+         circleNumber.el.remove()
+      }, 800);
+      res.value += (m * mMulti)
+      txt.innerText = abbreviateNumber(res.value)
+      smallCircleCounter--
+      clicksInLastSecond.push(m * mMulti)
+      OnlyClicksInLastSecond.push(m * mMulti)
+   } else {
+      res.value += m
+      txt.innerText = abbreviateNumber(res.value)
+      console.log(res.value)
+      clicksInLastSecond.push(m)
+      OnlyClicksInLastSecond.push(m)
+   }
 
    if (res.value >= congratsStep && ca <= 7) {
       cup = document.createElement("img")
@@ -129,17 +152,17 @@ let press = function() {
          })
       }, 3000);
    }
+
    earnings.innerText = "coins = " + res.value
 
-   clicksInLastSecond.push(m)
-   OnlyClicksInLastSecond.push(m)
    // if (clickSound.played) {
-      clickSound.load()
-      clickSound.play()
+   // clickSound.load()
+   // clickSound.play()
    // } else {
-      // clickSound.play()
+   // clickSound.play()
    // }
 }
+
 btn.addEventListener('click', press)
 btn.addEventListener('wheel', press)
 btn.addEventListener('keydown', press)
@@ -473,6 +496,9 @@ function switchTheme() {
    earnings.classList.toggle('income--switched')
    triangle.classList.toggle('triangle--switched')
    escText.classList.toggle('esc-text--switched')
+   for (let i = 0; i < balls.length; i++) {
+      balls[i].el.classList.toggle('small-circle__switched')
+   }
    for (let i = 0; i < soundEl.length; i++) {
       soundEl[i].classList.toggle('equa__el--switched')
    }
@@ -481,10 +507,10 @@ function switchTheme() {
    } else {
       squareColorValue--
    }
-   let smallCircle = document.getElementsByClassName('small-circle')
-   for (let i = 0; i < smallCircle.length; i++) {
-      smallCircle[i].classList.toggle('small-circle__switched')
-   }
+   // let smallCircle = document.getElementsByClassName('small-circle')
+   // for (let i = 0; i < smallCircle.length; i++) {
+   //    smallCircle[i].classList.toggle('small-circle__switched')
+   // }
 }
 
 function upd() {
@@ -509,12 +535,13 @@ function gradeCursor() {
       res.value -= c
       txt.innerText = abbreviateNumber(res.value)
       c *= 2
-      m += 4
+      m += 3
       value1.value *= 2
       value1.innerText = abbreviateNumber(value1.value)
       earnings.innerText = "coins = " + res.value
 
-      squareSize += 4
+      squareBorderSize += 0.05
+      squareSize += 0.2
    } else {
       value1.style.color = "red"
       value1.style.transition = "all .3s"
@@ -529,6 +556,14 @@ function gradeCursor() {
 let b = 1100
 value2.value = b
 value2.innerText = abbreviateNumber(value2.value)
+let mMulti = 1
+let smallCircleCounter = 0
+let smallCircleCounterId = smallCircleCounter + "-circle"
+let smallCircleBorderSize = 0.1
+let smallCircleSize = 2
+let isRotating = true
+let balls = []
+let rotationStarted = false
 // let aa = 1
 function gradeCirle() {
    if (res.value >= b) {
@@ -536,28 +571,65 @@ function gradeCirle() {
       txt.innerText = abbreviateNumber(res.value)
       // aa *= 2
       b *= 4
-      m *= 3
+      mMulti *= 2
       value2.value *= 4
       value2.innerText = abbreviateNumber(value2.value)
-      squareBorderSize += 3
+      smallCircleBorderSize += 0.05
+      smallCircleSize += 0.2
+      console.log(squareBorderSize)
 
-      const smallCircle = document.createElement("div")
-      smallCircle.classList.add('small-circle')
-      if (body[0].classList.contains('body--switched')) {
-         smallCircle.classList.add('small-circle__switched')
+      for (let i = 0; i < balls.length; i++) {
+         balls[i].el.style.borderWidth = smallCircleBorderSize + "vw "
+         balls[i].el.style.width = smallCircleSize + "vw "
+         balls[i].el.style.height = smallCircleSize + "vw "
       }
-      wrapper.appendChild(smallCircle);
-      let angle = 0
-      function rotate() {
-         const x = radius * Math.cos(angle) - smallRadius
-         const y = radius * Math.sin(angle) - smallRadius
-         smallCircle.style.left = `calc(50% + ${x}px)`
-         smallCircle.style.top = `calc(50% + ${y}px)`
-         smallCircle.style.position = "absolute"
-         angle += speed
-         requestAnimationFrame(rotate)
+
+      if (!rotationStarted) {
+         rotationStarted = true
+
+         setInterval(() => {
+            if (smallCircleCounter >= 19) return
+            const smallCircle = document.createElement("div")
+            smallCircle.classList.add('small-circle')
+            if (body[0].classList.contains('body--switched')) {
+               smallCircle.classList.add('small-circle__switched')
+            }
+            smallCircleCounter++
+            smallCircleCounterId = smallCircleCounter + "-circle"
+            wrapper.appendChild(smallCircle);
+            smallCircle.setAttribute("id", smallCircleCounterId)
+            smallCircle.style.borderWidth = smallCircleBorderSize + "vw "
+            smallCircle.style.width = smallCircleSize + "vw"
+            smallCircle.style.height = smallCircleSize + "vw"
+
+            let angle = 0
+            const circleData = {
+               el: smallCircle,
+               angle: angle,
+               isRotating: true,
+            };
+            balls.push(circleData)
+            animateBall(circleData)
+
+            console.log(balls.length)
+            console.log(smallCircle)
+
+         }, 1000);
       }
-      rotate()
+      function animateBall(ball) {
+         function rotate() {
+            if (!ball.isRotating) return
+            let x = radius * Math.cos(ball.angle) - ball.el.offsetWidth / 2
+            let y = radius * Math.sin(ball.angle) - ball.el.offsetHeight / 2
+            ball.el.style.left = `calc(50% + ${x}px)`
+            ball.el.style.top = `calc(50% + ${y}px)`
+            ball.el.style.position = "absolute"
+            ball.el.style.zIndex = "-1"
+            ball.angle += speed
+            requestAnimationFrame(rotate)
+         }
+         rotate();
+      }
       earnings.innerText = "coins = " + res.value
 
    } else {
@@ -568,16 +640,24 @@ function gradeCirle() {
       }, 300);
    }
 }
-const radius = 250
-const smallRadius = 38 / 2
-const speed = 0.01
+
+let winWidth = window.innerWidth
+let smallRadius = winWidth / 100
+let radius = winWidth / 8
+let speed = 0.01
+
+window.addEventListener('resize', (e) => {
+   winWidth = window.innerWidth
+   radius = winWidth / 8
+   smallRadius = winWidth / 100
+})
 
 // let squareBorderValue =  0
 let f = 7000
 value3.value = f
 value3.innerText = abbreviateNumber(value3.value)
 
-let ab = 70000
+let ab = 700
 function gradeAuto() {
    if (res.value >= f) {
       res.value -= f
@@ -594,7 +674,7 @@ function gradeAuto() {
          let posTop = Math.floor(Math.random() * 95) + "%"
          square = document.createElement("custom-square");
          square.setAttribute("id", iiId);
-         square.setAttribute("size", "25px");
+         square.setAttribute("size", "1.3vw");
          square.setAttribute("color", "black");
          square.setAttribute("border-radius", "50%");
          square.setAttribute("position", "absolute");
@@ -646,7 +726,7 @@ function gradeAuto() {
          clickSound.load()
          clickSound.play()
       }, 1000);
-      ab += 50000
+      ab += 500
 
 
    } else {
@@ -671,7 +751,7 @@ escText.onclick = () => {
 let escBlock = document.getElementById('esc')
 
 window.addEventListener(
-   "keydown", 
+   "keydown",
    function (event) {
       if (event.defaultPrevented) {
          return;
@@ -679,8 +759,8 @@ window.addEventListener(
 
       switch (event.key) {
          case "Escape":
-         escBlock.classList.toggle("esc--active")
-         megaWrapper.classList.toggle("mega-wrapper--off")
+            escBlock.classList.toggle("esc--active")
+            megaWrapper.classList.toggle("mega-wrapper--off")
             break;
 
          default:
